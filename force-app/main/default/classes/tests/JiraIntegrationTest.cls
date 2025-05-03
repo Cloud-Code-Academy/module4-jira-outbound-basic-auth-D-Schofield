@@ -16,6 +16,13 @@ private class JiraIntegrationTest {
 	 */
 	@TestSetup
 	static void setupTestData() {
+		// Create and set the Queueable_Switch__c custom setting
+		Queueable_Switch__c switchSetting = new Queueable_Switch__c(
+			SetupOwnerId = UserInfo.getOrganizationId(),
+			Run_JIRA_API__c = true
+		);
+		insert switchSetting;
+
 		// Create a test Jira Project record
 		Jira_Project__c project = new Jira_Project__c(
 			Project_Name__c = TEST_PROJECT_NAME,
