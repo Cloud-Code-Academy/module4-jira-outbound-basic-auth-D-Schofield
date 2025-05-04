@@ -2,6 +2,9 @@
  * Helper class for Jira triggers
  */
 public with sharing class JiraTriggerHelper {
+	// Static flag to prevent recursive triggers
+	public static Boolean isRecursive = false;
+
 	/**
 	 * Process Jira_Project__c records after insert
 	 * @param newProjects List of newly inserted Jira_Project__c records
