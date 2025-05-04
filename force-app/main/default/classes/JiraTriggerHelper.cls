@@ -29,9 +29,7 @@ public with sharing class JiraTriggerHelper {
 				project.Description__c
 			);
 
-			if (!Test.isRunningTest()) {
-				System.enqueueJob(callout);
-			}
+			System.enqueueJob(callout);
 		}
 	}
 
@@ -60,9 +58,7 @@ public with sharing class JiraTriggerHelper {
 				issue.Issue_Type__c
 			);
 
-			if (!Test.isRunningTest()) {
-				System.enqueueJob(callout);
-			}
+			System.enqueueJob(callout);
 		}
 	}
 
@@ -98,9 +94,7 @@ public with sharing class JiraTriggerHelper {
 				issue.Issue_Type__c
 			);
 
-			if (!Test.isRunningTest()) {
-				System.enqueueJob(callout);
-			}
+			System.enqueueJob(callout);
 		}
 	}
 }
