@@ -96,8 +96,8 @@ public class JiraCalloutQueueable implements Queueable, Database.AllowsCallouts 
 	private void updateJiraProject(String jiraProjectId) {
 		Jira_Project__c project = new Jira_Project__c(
 			Id = recordId,
-			Project_ID__c = jiraProjectId,
-			Last_Updated__c = Datetime.now()
+			Project_ID__c = jiraProjectId
+			//Last_Updated__c = Datetime.now()
 		);
 		update project;
 	}
@@ -123,15 +123,15 @@ public class JiraCalloutQueueable implements Queueable, Database.AllowsCallouts 
 		SObject record;
 		if (calloutType == TYPE_PROJECT) {
 			record = new Jira_Project__c(
-				Id = recordId,
-				Error_Message__c = errorMessage,
-				Last_Updated__c = Datetime.now()
+				Id = recordId
+				//Error_Message__c = errorMessage,
+				//Last_Updated__c = Datetime.now()
 			);
 		} else if (calloutType == TYPE_ISSUE) {
 			record = new Jira_Issue__c(
-				Id = recordId,
-				Error_Message__c = errorMessage,
-				Last_Updated__c = Datetime.now()
+				Id = recordId
+				//Error_Message__c = errorMessage,
+				//Last_Updated__c = Datetime.now()
 			);
 		}
 		if (record != null) {
