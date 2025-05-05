@@ -85,7 +85,6 @@ public class JiraCalloutQueueable implements Queueable, Database.AllowsCallouts 
 			Logger.error('Error in JiraCalloutQueueable')
 				.addTag('JIRA')
 				.setMessage('Exception: ' + e.getMessage() + '\nStack Trace: ' + e.getStackTraceString());
-			updateRecordWithError(e.getMessage());
 		}
 	}
 
@@ -115,27 +114,4 @@ public class JiraCalloutQueueable implements Queueable, Database.AllowsCallouts 
 		update issue;
 	}
 
-	/**
-	 * Update the record with an error message
-	 * @param errorMessage The error message to store
-	 */
-	private void updateRecordWithError(String errorMessage) {
-		SObject record;
-		if (calloutType == TYPE_PROJECT) {
-			record = new Jira_Project__c(
-				Id = recordId
-				//Error_Message__c = errorMessage,
-				//Last_Updated__c = Datetime.now()
-			);
-		} else if (calloutType == TYPE_ISSUE) {
-			record = new Jira_Issue__c(
-				Id = recordId
-				//Error_Message__c = errorMessage,
-				//Last_Updated__c = Datetime.now()
-			);
-		}
-		if (record != null) {
-			update record;
-		}
-	}
 }
