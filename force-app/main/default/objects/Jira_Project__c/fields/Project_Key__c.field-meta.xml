@@ -8,4 +8,5 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>
+    <inlineHelpText>Enter a 2-10 character project key using only uppercase letters (A-Z). This will be used as the project identifier in Jira.</inlineHelpText>
 </CustomField>
