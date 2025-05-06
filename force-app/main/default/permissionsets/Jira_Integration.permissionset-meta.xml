@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <externalCredentialPrincipalAccesses>
+    <!--<externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
         <externalCredentialPrincipal>JIRA-JIRA Principal</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
+    </externalCredentialPrincipalAccesses> -->
     <fieldPermissions>
         <editable>true</editable>
         <field>Jira_Issue__c.Description__c</field>
