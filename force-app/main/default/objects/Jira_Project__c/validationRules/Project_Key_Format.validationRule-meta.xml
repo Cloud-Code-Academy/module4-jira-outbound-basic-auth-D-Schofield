@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Key_Format</fullName>
+    <active>false</active>
+    <description>Validates that the Project Key is 2-10 uppercase letters</description>
+    <errorConditionFormula>OR(
+    LEN(Project_Key__c) &lt; 2,
+    LEN(Project_Key__c) &gt; 10,
+    NOT(REGEX(Project_Key__c, &quot;^[A-Z]+$&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Project_Key__c</errorDisplayField>
+    <errorMessage>Project Key must be 2-10 uppercase letters (A-Z)</errorMessage>
+</ValidationRule> 

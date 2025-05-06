@@ -56,34 +56,62 @@ public class JiraCalloutQueueable implements Queueable, Database.AllowsCallouts 
 
 	/**
 	 * Execute the callout based on the callout type
-	 *
-	 * TODO: Implement this method to:
-	 * 1. Check the callout type (TYPE_PROJECT or TYPE_ISSUE)
-	 * 2. Call the appropriate JiraAPIService method
-	 * 3. Update the corresponding Salesforce record with the Jira ID/Key
+	 * @param context The QueueableContext
 	 */
 	public void execute(QueueableContext context) {
-		// Your implementation goes here
+		try {
+			// Check if queueable jobs are enabled
+			Queueable_Switch__c switchSetting = Queueable_Switch__c.getInstance();
+			if (switchSetting == null || !switchSetting.Run_JIRA_API__c) {
+				Logger.info('Queueable job execution stopped by switch setting')
+					.addTag('JIRA')
+					.setMessage('Queueable_Switch__c.Run_JIRA_API__c is false');
+				Logger.saveLog();
+				return;
+			}
+			
+			if (calloutType == TYPE_PROJECT) {
+				String jiraProjectId = JiraAPIService.createProject(projectWrapper);
+				if (String.isNotBlank(jiraProjectId)) {
+					updateJiraProject(jiraProjectId);
+				}
+			} else if (calloutType == TYPE_ISSUE) {
+				String jiraIssueKey = JiraAPIService.createIssue(issueWrapper);
+				if (String.isNotBlank(jiraIssueKey)) {
+					updateJiraIssue(jiraIssueKey);
+				}
+			}
+		} catch (Exception e) {
+			Logger.error('Error in JiraCalloutQueueable')
+				.addTag('JIRA')
+				.setMessage('Exception: ' + e.getMessage() + '\nStack Trace: ' + e.getStackTraceString());
+		}
 	}
 
 	/**
 	 * Update the Jira Project record with the Jira project Id
-	 *
-	 * TODO: Implement this method to update the Jira_Project__c record
-	 * with the Jira project ID returned from the API
+	 * @param jiraProjectId The ID returned from the Jira API
 	 */
 	private void updateJiraProject(String jiraProjectId) {
-		// Your implementation goes here
+		Jira_Project__c project = new Jira_Project__c(
+			Id = recordId,
+			Project_ID__c = jiraProjectId
+			//Last_Updated__c = Datetime.now()
+		);
+		update project;
 	}
 
 	/**
 	 * Update the Jira Issue record with the Jira issue key
-	 *
-	 * TODO: Implement this method to update the Jira_Issue__c record
-	 * with the Jira issue key returned from the API
-	 * Don't forget to update the Last_Updated__c field with the current time
+	 * @param jiraIssueKey The key returned from the Jira API
 	 */
 	private void updateJiraIssue(String jiraIssueKey) {
-		// Your implementation goes here
+		Jira_Issue__c issue = new Jira_Issue__c(
+			Id = recordId,
+			Issue_Key__c = jiraIssueKey,
+			Last_Updated__c = Datetime.now()
+		);
+		update issue;
 	}
+
 }

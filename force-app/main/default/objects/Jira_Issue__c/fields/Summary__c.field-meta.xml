@@ -2,9 +2,10 @@
 <CustomField xmlns="https://soap.sforce.com/2006/04/metadata">
     <fullName>Summary__c</fullName>
     <externalId>false</externalId>
+    <inlineHelpText>Enter a brief summary of the issue. This field is required and will be used as the issue title in Jira.</inlineHelpText>
     <label>Summary</label>
     <length>255</length>
-    <required>false</required>
+    <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
